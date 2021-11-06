@@ -3,6 +3,15 @@ from django.contrib.gis.geoip2 import GeoIP2
 # Helper function
 
 
+def get_ip_address(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 def get_geo(ip):
     g = GeoIP2()
     country = g.country(ip)

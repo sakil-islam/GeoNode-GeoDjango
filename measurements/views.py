@@ -4,7 +4,7 @@ from .forms import MeasurementModelForm
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import folium
-from .utils import get_geo, get_center_coordinates, get_zoom
+from .utils import get_geo, get_center_coordinates, get_zoom, get_ip_address
 
 # Create your views here.
 
@@ -16,6 +16,9 @@ def calculate_distance_view(request):
     obj = get_object_or_404(Measurement, id=1)
     form = MeasurementModelForm(request.POST or None)
     geolocator = Nominatim(user_agent='measurements')
+
+    # ip_ = get_ip_address(request)
+    # print(ip_)
 
     ip = '72.14.207.99'
     country, city, lat, lon = get_geo(ip)
